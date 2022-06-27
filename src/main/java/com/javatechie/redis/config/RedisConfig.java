@@ -31,9 +31,9 @@ public class RedisConfig {
     public LettuceConnectionFactory connectionFactory() {
 
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
-        configuration.setHostName("redis-16932.c299.asia-northeast1-1.gce.cloud.redislabs.com");
+        configuration.setHostName("");
         configuration.setPort(16932);
-        configuration.setPassword("nDv2heLR1S72f96yMmJaLpMnFHGd501Q");
+        configuration.setPassword("");
        //configuration.setHostName("default");
         return new LettuceConnectionFactory(configuration);
     }
