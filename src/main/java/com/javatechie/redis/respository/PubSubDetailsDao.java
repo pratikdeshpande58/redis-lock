@@ -9,46 +9,18 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 @Repository
-public class PubSubDetailsDao extends Thread{
+public class PubSubDetailsDao{
 
     public static final String HASH_KEY = "PubSubDetails";
-    private  CountDownLatch countDownlatch;
     @Autowired
     private RedisTemplate template;
 
     public Boolean save(PubSubDetails pubSubDetails){
-        PubSubDetails pu2 = new PubSubDetails(1234,"isolation2","comp");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("Thread1");
-                template.opsForHash().put(HASH_KEY,pubSubDetails.getId(),pubSubDetails);
-//        System.out.println(value);
-//        return value;
-            }
-        }).start();
+        template.opsForHash().put(HASH_KEY,pubSubDetails.getId(),pubSubDetails);
+      //Boolean value = template.opsForHash().putIfAbsent(HASH_KEY,pubSubDetails.getId(),"team");
+       //System.out.println(value);
+      return true;
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("Thread2");
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                template.opsForHash().put(HASH_KEY, pu2.getId(),pu2);
-//        System.out.println(value);
-//        return value;
-            }
-        }).start();
-        //template.opsForHash().put(HASH_KEY,pubSubDetails.getId(),pubSubDetails);
-//        Boolean value = template.opsForHash().putIfAbsent(HASH_KEY,pubSubDetails.getId(),pubSubDetails);
-//        System.out.println(value);
-//        return value;
-
-
-        return null;
     }
 
     public List<PubSubDetails> findAll(){

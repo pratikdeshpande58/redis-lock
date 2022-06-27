@@ -5,9 +5,12 @@ import com.javatechie.redis.respository.PubSubDetailsDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 @SpringBootApplication
 @RestController
@@ -16,8 +19,8 @@ public class SpringDataRedisExampleApplication {
     @Autowired
     private PubSubDetailsDao dao;
 
-    @PostMapping
-    public PubSubDetails save(@RequestBody PubSubDetails pubSubDetails) {
+
+    public Boolean save(@RequestBody PubSubDetails pubSubDetails) {
         return dao.save(pubSubDetails);
     }
 
@@ -39,5 +42,4 @@ public class SpringDataRedisExampleApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringDataRedisExampleApplication.class, args);
     }
-
 }
